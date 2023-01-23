@@ -4,7 +4,7 @@ from app.intervenants import bp
 from app.extensions import db
 from app.models.intervenants import Intervenants
 
-@bp.route('/intervenants')
+@bp.route('/index')
 def index():
     intervs = Intervenants.objects()
 
