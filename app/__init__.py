@@ -9,10 +9,13 @@ def create_app(config_class=Config):
     
     # initialize mongodb
     db.init_app(app)
-    
+
     # blueprints
     from app.intervenants import bp as intervenants_bp
     app.register_blueprint(intervenants_bp)
+
+    from app.search import bp as search_bp
+    app.register_blueprint(search_bp)
 
 
     @app.route('/test')

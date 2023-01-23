@@ -1,0 +1,11 @@
+{% block content %}
+
+<h2> ICI</h2>
+<form id="text-search" class="form-search-text" action="{{ url_for('search.text') }}" method="post">
+    <div class="form-search-text">
+        <label for="text">Recherche : </label>
+        <input type="text" text="text" id="text" name="text" placeholder='Je recherche...' required>
+      </div>
+</form>
+
+{% endblock content %}
