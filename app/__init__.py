@@ -7,7 +7,14 @@ def create_app(config_class=Config):
     app=Flask(__name__)
     app.config.from_object(config_class)
     
+    # initialize mongodb
+    db.init_app(app)
     
+    # blueprints
+    from app.intervenants import bp as intervenants_bp
+    app.register_blueprint(intervenants_bp)
+
+
     @app.route('/test')
     def test_page():
         return "test page"
