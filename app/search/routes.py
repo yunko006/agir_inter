@@ -1,17 +1,26 @@
-from flask import render_template, request
+from flask import render_template, render_template_string, request
 
 from app.search import bp
 from app.models.intervenants import Intervenants
 
 
-@bp.route('/text', methods=['GET', 'POST'])
-def text():
-    if request.method == 'POST':
-        search = request.form['text']
 
-        result_search = Intervenants.objects.search_text(search).order_by('$text_score')
-
-        return render_template('search/text-results.html', results=result_search)
+@bp.route('/')
+def index():
+    return render_template('search/recherche_textuelle.html')
 
 
-    return render_template('search/text.html')
+@bp.route('/active_search', methods=['POST'])
+def active_search():
+    
+    search = request.form['search']
+    intervs = Intervenants.objects.search_text(search).order_by('$text_score')
+
+
+    return render_template('search/results.html', intervs=intervs)
+
+
+@bp.route('/combinaison')
+def combinaison():
+
+    return render_template('search/combinaison.html')
