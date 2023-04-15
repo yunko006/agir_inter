@@ -1,0 +1,45 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2 border-bottom">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="80" height="64">
+      <div class="row px-2">
+        <span class="fs-4 px-5 text-primary">AGIRabcd</span>
+        <small class="fst-italic text-primary">Profil des volontaires international</small>
+      </div>
+    </a>
+  
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a href="/" class="nav-link px-2 link-dark">Accueil</a></li>
+      <!-- dropdown bénévole -->
+      <li class="nav-item dropdown">
+          <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Bénévoles</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown03">
+            <li><a class="dropdown-item" href="{{ url_for('intervenants.accordeon_delegation') }}">Tous les intervenants</a></li>
+            <li><a class="dropdown-item" href="">Enregistrer un bénévole</a></li>
+          </ul>
+          <li><a class="nav-link px-2 link-dark" href="">Voir ma fiche</a></li>
+      </li>
+      <!-- dropdown recherche -->
+
+      <li class="nav-item dropdown">
+        <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Recherche</a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+          <li><a class="dropdown-item" href="{{ url_for('search.index') }}">Recherche</a></li>
+          <li><a class="dropdown-item" href="{{ url_for('search.combinaison') }}">Recherche avancée</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown text-end">
+        <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Informations</a>
+        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+          <li><a class="dropdown-item" href="">Aide</a></li>
+          <li><a class="dropdown-item" href="">Contact</a></li>
+          <li><a class="dropdown-item" href="">A propos de...</a></li>
+        </ul>
+      </li>
+    </ul>
+  
+    <div class="col-md-3 text-end">
+      <a type="button" class="btn btn-outline-primary me-2" href="">Se déconnecter</a>
+    </div>
+  
+  </header>
