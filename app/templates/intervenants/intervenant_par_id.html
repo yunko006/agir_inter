@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+
+{%block content %}
+
+<div class="card shadow p-3 mb-5 bg-body rounded">
+    <div class="card-header bg-primary rounded text-white text-center">
+        Informations personnelles
+    </div>
+    <!-- Infos générales -->
+    {% for data in test %}
+    <ul class="list-group list-group-flush">
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Numéro d'adhérent</p>
+                    </div>
+                    <div class="col">
+                        {{ data.id}}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Nom</p>
+                    </div>
+                    <div class="col">
+                        {{ data.nom }} {{ data.prenom}}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Email</p>
+                    </div>
+                    <div class="col">
+                        {{ data.email }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Contact</p>
+                    </div>
+                    <div class="col">
+                        {{ data.contact }} // probleme avec data dans la db
+                    </div>
+            </div>
+        </li>
+        {% if data.linkedin|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Linkedin</p>
+                    </div>
+                    <div class="col">
+                        <a href='{{ data.linkedin}}'>{{ data.linkedin }}</a>
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <div class="card-header bg-primary rounded text-white text-center">
+            Délégation
+        </div>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Délégation</p>
+                    </div>
+                    <div class="col">
+                        {{ data.delegation }}
+                    </div>
+            </div>
+        </li>
+        
+        <div class="card-header bg-primary rounded text-white text-center">
+            Motivations
+        </div>
+        
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Aider, être utile</p>
+                    </div>
+                    <div class="col">
+                        {{ data.aider }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Voyager, découvrir d'autres pays</p>
+                    </div>
+                    <div class="col">
+                        {{ data.voyager }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Travailler en équipe</p>
+                    </div>
+                    <div class="col">
+                        {{ data.travailler_en_equipe }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Soutenir les plus démunis</p>
+                    </div>
+                    <div class="col">
+                        {{ data.soutenir }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Connaitre d'autres personnes/cultures</p>
+                    </div>
+                    <div class="col">
+                        {{ data.connaitre_personnes_cultures }}
+                    </div>
+            </div>
+        </li>
+        
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Mettre mes compétences à disposition</p>
+                    </div>
+                    <div class="col">
+                        {{ data.mettre_a_dispotion }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Prendre des responsabilités</p>
+                    </div>
+                    <div class="col">
+                        {{ data.responsabilites }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Etre actif</p>
+                    </div>
+                    <div class="col">
+                        {{ data.actif }}
+                    </div>
+            </div>
+        </li>
+        {% if data.autres_facteurs|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Autres facteurs</p>
+                    </div>
+                    <div class="col">
+                        {{ data.autres_facteurs }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <div class="card-header bg-primary rounded text-white text-center">
+            Disponibilité
+        </div>
+        
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Type de mission/projet</p>
+                    </div>
+                    <div class="col">
+                        {{ data.dispo }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Durée du déplacement</p>
+                    </div>
+                    <div class="col">
+                        {{ data.duree }}
+                    </div>
+            </div>
+        </li>
+
+        {% if data.deplacements_par_an|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Nombre de déplacements</p>
+                    </div>
+                    <div class="col">
+                        {{ data.deplacements_par_an }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <div class="card-header bg-primary rounded text-white text-center">
+            Langues parlées
+        </div>
+
+        {% if data.langue_maternelle|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Langue marternelle</p>
+                    </div>
+                    <div class="col">
+                        {{ data.langue_maternelle }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.notions|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Notions</p>
+                    </div>
+                    <div class="col">
+                        {{ data.notions }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.lu_parle_ecrit|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">lu_parle_ecrit</p>
+                    </div>
+                    <div class="col">
+                        {{ data.lu_parle_ecrit }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.autonomes|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">autonomes</p>
+                    </div>
+                    <div class="col">
+                        {{ data.autonomes }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <!-- rajouter autres langues -->
+        
+        <div class="card-header bg-primary rounded text-white text-center">
+            Domaines et secteurs d'intervention
+        </div>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Domaines</p>
+                    </div>
+                    <div class="col">
+                        {{ data.domaines }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Fonctions</p>
+                    </div>
+                    <div class="col">
+                        {{ data.fonctions }}
+                    </div>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Compétences</p>
+                    </div>
+                    <div class="col">
+                        {{ data.competences }}
+                    </div>
+            </div>
+        </li>
+
+        {% if data.complements|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Compléments</p>
+                    </div>
+                    <div class="col">
+                        {{ data.complements }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <div class="card-header bg-primary rounded text-white text-center">
+            Expériences internationnales
+        </div>
+
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">J'ai...</p>
+                    </div>
+                    <div class="col">
+                        {{ data.exp_inter_oui_non }}
+                    </div>
+            </div>
+        </li>
+
+        {% if data.exp_pro|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Exp pro</p>
+                    </div>
+                    <div class="col">
+                        {{ data.exp_pro }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.exp_benevole|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Exp bénévole</p>
+                    </div>
+                    <div class="col">
+                        {{ data.exp_benevole }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        <div class="card-header bg-primary rounded text-white text-center">
+            Suggestions, recommandations
+        </div>
+
+        {% if data.connaissances_structure|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Niveau de connaissance d'AGIRabcd</p>
+                    </div>
+                    <div class="col">
+                        {{ data.connaissances_structure }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.connaissances|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Niveau de connaissance d'AGIRabcd</p>
+                    </div>
+                    <div class="col">
+                        {{ data.connaissances }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+
+        {% if data.idees|length %}
+        <li class="list-group-item">
+            <div class="row py-2 mb-1">
+                    <div class="col-2">
+                        <p class="fw-bolder text-muted">Idées, suggestions</p>
+                    </div>
+                    <div class="col">
+                        {{ data.idees }}
+                    </div>
+            </div>
+        </li>
+        {% endif %}
+    </ul>
+    {% endfor %}
+
+
+{% endblock content %}
