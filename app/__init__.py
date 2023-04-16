@@ -1,7 +1,11 @@
+from flask_bootstrap import Bootstrap5
 from flask import Flask, render_template
 
+
 from config import Config
+
 from .extensions import db
+
 
 def create_app(config_class=Config):
     app=Flask(__name__)
@@ -10,6 +14,8 @@ def create_app(config_class=Config):
     # initialize mongodb
     db.init_app(app)
 
+    bootstrap = Bootstrap5(app)
+    
     # blueprints
     from app.intervenants import bp as intervenants_bp
     app.register_blueprint(intervenants_bp)
