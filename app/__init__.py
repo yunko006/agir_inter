@@ -17,6 +17,9 @@ def create_app(config_class=Config):
     from app.search import bp as search_bp
     app.register_blueprint(search_bp)
 
+    from app.auth import auth as auth_bp
+    app.register_blueprint(auth_bp)
+
 
     @app.route('/test')
     def test_page():
