@@ -1,0 +1,63 @@
+{% from 'bootstrap5/form.html' import render_form %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image">
+    <title>
+      {% block title %} Connexion {% endblock %}
+    </title>
+    <!-- Bootstrap -->
+    {{ bootstrap.load_css() }}
+
+
+  </head>
+  <body>
+    <!-- header -->
+    <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" width="80" height="64">
+      </a>
+
+      <p class="fs-2 text-center">Profil des intervenants à l'international</p>
+
+
+      <div class="col-md-3 text-end">
+        <a href="" class="text-decoration-none">Contact</a>
+      </div>
+    </header>
+    </div>
+
+    <!-- Layout du site -->
+    <main role="main" class="container py-4">
+
+      {% block content %}
+
+      <div class="card mb-3 shadow-sm p-3 mb-2 bg-body rounded">
+        <img src="{{ url_for('static', filename='images/zoom.png') }}" class="card-img-top" alt="logo">
+        <div class="card-body">
+          <h5 class="card-title text-center fs-2">Se connecter à la base des profils AGIRabcd</h5>
+          <p class="card-text">
+            <div class="container-fluid" style="max-width:600px">
+              <div class="form-group">
+                <form  action="" method="post" novalidate>
+                    {{ render_form(form) }}
+                </form>
+              </div>
+            </div>
+          <p class="card-text text-end"><small class="text-muted"><a href="#" class="text-decoration-none">Contact</a></small></p>
+        </div>
+
+        {% endblock %}
+
+    </main>
+
+    <!-- bootstrap js -->
+    {{ bootstrap.load_js() }}
+
+  </body>
+</html>
