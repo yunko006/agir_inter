@@ -1,46 +1,37 @@
 {% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
 {% block title %} Recherche avancée {% endblock %}
 
 {% block page_header %}
-<div>
-  <div class="row">
-    <div class="col text-center">
-      <h2 class="d-flex justify-content-center mb-2">Recherche par combinaison</h2>
-    </div>
-    <div class="row">
-      <div class="col"></div>
-      <div class="col justify-content-center text-center">
-        <button class="btn btn-primary" type="submit" form="my-form">Rechercher</button>
-      </div>
-      <div class="col">
-        <a class="text-center" href="">Aide</a>
-      </div>
-    </div>
-</div>
+
 
 {% endblock page_header %}
 
 {% block content %}
 
+<!-- Le bouton pour ajouter un nouveau champ de formulaire -->
+<button hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="afterend">
+  Ajouter un champ de formulaire
+</button>
 
-<div class="all">
-  <form class="formi" id="my-form" action="{{ url_for('search.combinaison') }}" method="post">
+<!-- Les champs de formulaire existants -->
+<form id="my-form" name="submit_button" method="POST" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results" >
+  <div id="form-fields">
     <div class="row mb-2">
       <div class="col-4">
         <p>Critères de recherche pour l'intervention</p>
         <div class="form-group">
           <select class="form-select" name="champs">
             <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
+            <option value="langue_maternelle">Langue : maternelle</option>
             <option value="autonome">Langue : autonome</option>
             <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
+            <option value="lu_parle_ecrit">Langue : lu parlée écrite</option>
             <option value="domaines">Domaine d'intervetion</option>
             <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
+            <option value="competences">Compétence d'intervention</option>
+            <option value="exp_pro">Expérience Pays (Pro)</option>
+            <option value="exp_benevole">Expérince Pays (Bénévolat)</option>
           </select>
         </div>
       </div>
@@ -49,191 +40,39 @@
         <input type="text" class="form-control" name="recherche"  placeholder="Mot clé" />
       </div>
     </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <div class="row mb-2">
-      <div class="col-4">
-        <div class="form-group">
-          <select class="form-select" name="champs">
-            <option value="#">--</option>
-            <option value="maternelle">Langue : maternelle</option>
-            <option value="autonome">Langue : autonome</option>
-            <option value="notions">Langue: notions</option>
-            <option value="lu_parlé_écrit">Langue : lu parlée écrite</option>
-            <option value="secteurs">Secteur d'intervention</option>
-            <option value="domaines">Domaine d'intervetion</option>
-            <option value="fonctions">Fonction d'intervention</option>
-            <option value="compétences">Compétence d'intervention</option>
-            <option value="roles">Roles</option>
-            <option value="expérience_internationale">Expérience Pays (Pro)</option>
-            <option value="expérience_internationale_benevole">Expérince Pays (Bénévolat)</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-8">
-        <input type="text" class="form-control" name="recherche" placeholder="--" />
-      </div>
-    </div>
-    <!--  -->
-      <!-- pas radio mais marche -->
-      <!-- <input class="form-check-input" type="checkbox" id="inter" name="Inter"
-         checked>
-      <label for="inter">Inter</label>
-      <input class="form-check-input" type="checkbox" id="france" name="France">
-      <label for="france">France uniquement</label>
-      
-      <!-- Copier bootstrap -->
-      <!-- <div class="form-check">
-        <input class="form-check-input" type="radio" name="inter" id="inter" checked>
-        <label class="form-check-label" for="inter">
-          Inter
-        </label>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="france" id="france">
-        <label class="form-check-label" for="france">
-          France uniquement
-        </label>
-      </div> -->
-  </form>
-  <!-- <button class="btn btn-primary" type="submit" form="my-form">Rechercher</button> -->
+  </div>
+</form>
+
+<button class="btn btn-primary" type="submit" form="my-form" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results">Rechercher</button>
+
+<div id='results'>
 </div>
 
 
+<script>
+  // récupère le formulaire
+const form = document.querySelector('#my-form');
+
+// écoute l'événement submit sur le formulaire
+form.addEventListener('submit', (event) => {
+  // empêche le formulaire de se soumettre normalement
+  event.preventDefault();
+  
+  // récupère les données du formulaire en utilisant FormData
+  const formData = new FormData(form);
+  
+  // envoie les données du formulaire au serveur Flask via une requête AJAX
+  fetch({{url_for('search.combinaison_search')}}, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    // traite la réponse du serveur Flask
+  })
+  .catch(error => {
+    console.error(error);
+  });
+});
+</script>
 
 {% endblock %}
