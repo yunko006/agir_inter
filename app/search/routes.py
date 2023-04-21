@@ -1,11 +1,13 @@
-from flask import render_template, request
+from flask import render_template, request, session
 
 from app.search import bp
 from app.models.intervenants import Intervenants
-
+from mongoengine.connection import get_db
 
 from roles_required import AI_required, admin_required
-from app.search.utils import convertion, queryset_by_element
+from app.search.utils import recherche_combinaison
+
+from app.extensions import db
 
 
 @bp.route("/")
@@ -31,26 +33,28 @@ def combinaison():
 # Route pour ajouter un nouveau champ de formulaire
 @bp.route("/add_field", methods=["POST"])
 def add_field():
-    # Créez un nouveau champ de formulaire avec un nom unique
+    # utilse htmx pour render template dans la form
     return render_template("search/add_fields.html")
 
 
 @bp.route("/combinaison_search", methods=["POST"])
 def combinaison_search():
-    # deja des list, le soucis c'est quoi ?
-    recherche_list = request.form.getlist("recherche")
-    champs_list = request.form.getlist("champs")
-    print(recherche_list)
-    print(champs_list)
-    # queryset_benevoles = Intervenants.objects.all()
+    """
+    petit soucis : ma requete ajax (avec htmx) envoie dans un premier temps des fileds vite tels que : []
+    if permet de traiter suelement ceux qui sont plein
+    le truc c'est quand c'est vide je vais l'utiliser pour faire un temps d'attente, pas opti mais ok
+    """
+    # accede au valeur de la form
+    recherche = request.form.getlist("recherche")
+    champs = request.form.getlist("champs")
 
-    # test = convertion(recherche_list, champs_list)
-    # print(f"resulat: {test}")
-    # print(type(test))
-    # intervs = queryset_by_element(test, queryset_benevoles)
+    # recherche quand les champs sont pleins
+    if recherche and champs:
+        query_set = Intervenants.objects.all()
 
-    # uk_pages = Intervenants.objects(nom__icontains="pria")
-    # for page in uk_pages:
-    #     print(page.prenom)
+        intervs = recherche_combinaison(champs, recherche, query_set)
 
-    return render_template("search/results.html")
+        return render_template("search/results_combinaison.html", intervs=intervs)
+
+    # attente grâce aux champs vides
+    return "chargement des résultats..."
