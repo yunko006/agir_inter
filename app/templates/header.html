@@ -1,45 +1,57 @@
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2 border-bottom">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="80" height="64">
-      <div class="row px-2">
-        <span class="fs-4 px-5 text-primary">AGIRabcd</span>
-        <small class="fst-italic text-primary">Profil des volontaires international</small>
+<header>
+  <div class="px-3 ">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0">
+          <img src="/static/images/logo.jpg" alt="Logo" width="100" height="64">
+          <img src="/static/images/carre.jpg" alt="Logo" width="80" height="64">
+        </a>
+        <!-- milieu di div -->
+        <div class="d-flex flex-column align-items-center">
+          <div class="row">
+            <span class="fs-3 text-primary">AGIRabcd</span>
+          </div>
+          <div class="row">
+            <small class="fs-5 fst-italic text-primary">Profil des volontaires international</small>
+          </div>
+        </div>
+        <!-- fin de la div -->
+        <div class="col-md-3 text-end">
+          <a type="button" class="btn btn-outline-primary me-2" href="/logout">Se déconnecter</a>
+        </div>
       </div>
-    </a>
-  
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="/" class="nav-link px-2 link-dark">Accueil</a></li>
-      <!-- dropdown bénévole -->
-      <li class="nav-item dropdown">
-          <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Bénévoles</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown03">
-            <li><a class="dropdown-item" href="{{ url_for('intervenants.accordeon_delegation') }}">Tous les intervenants</a></li>
-            <li><a class="dropdown-item" href="">Enregistrer un bénévole</a></li>
-          </ul>
-          <li><a class="nav-link px-2 link-dark" href="">Voir ma fiche</a></li>
-      </li>
-      <!-- dropdown recherche -->
-
-      <li class="nav-item dropdown">
-        <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Recherche</a>
-        <ul class="dropdown-menu" aria-labelledby="dropdown03">
-          <li><a class="dropdown-item" href="{{ url_for('search.index') }}">Recherche</a></li>
-          <li><a class="dropdown-item" href="{{ url_for('search.combinaison') }}">Recherche avancée</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item dropdown text-end">
-        <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Informations</a>
-        <ul class="dropdown-menu" aria-labelledby="dropdown03">
-          <li><a class="dropdown-item" href="">Aide</a></li>
-          <li><a class="dropdown-item" href="">Contact</a></li>
-          <li><a class="dropdown-item" href="">A propos de...</a></li>
-        </ul>
-      </li>
-    </ul>
-  
-    <div class="col-md-3 text-end">
-      <a type="button" class="btn btn-outline-primary me-2" href="{{ url_for('auth.logout')}}">Se déconnecter</a>
     </div>
+  </div>
+    
   
-  </header>
+          <!-- header du dessous -->
+          <div class="px-3 py-2 border-bottom mb-3 bg-light text-white">
+            <div class="container d-flex flex-wrap justify-content-center">
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 link-dark">Accueil</a></li>
+                <li><a href="{{ url_for('intervenants.accordeon_delegation') }}" class="nav-link px-2 link-dark">Tous les intervenants</a></li>
+              
+                <!-- dropdown recherche -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Recherche</a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                    <li><a class="dropdown-item" href="{{ url_for('search.index') }}">Recherche</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('search.combinaison') }}">Recherche avancée</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown text-end">
+                  <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Informations</a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                    <li><a class="dropdown-item" href="">Aide</a></li>
+                    <li><a class="dropdown-item" href="">Contact</a></li>
+                    <li><a class="dropdown-item" href="">A propos de...</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+      <!-- fin double header -->
+</header>
