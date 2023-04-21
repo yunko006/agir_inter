@@ -1,141 +1,4 @@
 import itertools
-from app.models.intervenants import Intervenants
-
-# ['maternelle', 'notions', 'expérience_internationale']
-# ['francais', 'congo', 'congo']
-# 1) créer un dict de la forme : {"maternelle": "francais", "notions":"congo", "exp": "congo"}
-# 2)
-
-
-def appartenance(champs: dict):
-    appart = []
-
-    DomainesEtSecteurs = ["secteurs", "domaines", "fonctions", "compétences"]
-    dispo = ["mission_ou_projet", "durée", "nb_déplacements"]
-    langues = ["maternelle", "autonome", "notions", "lu_parlé_écrit"]
-    ExperienceInterBenevole = [
-        "roles",
-        "expérience_internationale",
-        "expérience_internationale_benevole",
-    ]
-    for champ in champs.keys():
-        if champ in DomainesEtSecteurs:
-            appart.append("DomainesEtSecteurs")
-
-        elif champ in dispo:
-            appart.append("disponibilités")
-
-        elif champ in langues:
-            appart.append("langues")
-
-        elif champ in ExperienceInterBenevole:
-            appart.append("ExperienceInterBenevole")
-
-    return appart
-
-
-def single_appartenance(champs: str):
-    inter = ["volontaire", "hésitation"]
-    DomainesEtSecteurs = ["secteurs", "domaines", "fonctions", "compétences"]
-    dispo = ["mission_ou_projet", "durée", "nb_déplacements"]
-    langues = ["maternelle", "autonome", "notions", "lu_parlé_écrit"]
-    ExperienceInterBenevole = [
-        "roles",
-        "expérience_internationale",
-        "expérience_internationale_benevole",
-    ]
-    contact = ["numéro", "email"]
-
-    if champs in inter:
-        return "inter"
-
-    elif champs in DomainesEtSecteurs:
-        return "DomainesEtSecteurs"
-
-    elif champs in dispo:
-        return "disponibilités"
-
-    elif champs in langues:
-        return "langues"
-
-    elif champs in ExperienceInterBenevole:
-        return "ExperienceInterBenevole"
-
-    elif champs in contact:
-        return "contact"
-
-    else:
-        return f"{champs}"
-
-
-def clean_data(query: str):
-    for ch in ["{", "}", "'", "(", ")"]:
-        if ch in query:
-            query = query.replace(ch, "")
-
-    return query
-
-
-def combinaison(l: list) -> list:
-    combination_list = []
-    for L in range(1, len(l) + 1):
-        for subset in itertools.combinations(l, L):
-            if subset[0] == l[0]:
-                combination_list.append(subset)
-
-    return combination_list[::-1]
-
-
-def convert_str_to_dict(string):
-    convertedDict = dict(
-        (x.strip(), y.strip())
-        for x, y in (element.split(":") for element in string.split(", "))
-    )
-
-    return convertedDict
-
-
-def tuple_to_str(tup: tuple) -> str:
-    a = ", ".join(tup)
-    return a
-
-
-def creation_dict(test_dict: dict) -> dict:
-    benevole = {}
-
-    appart = appartenance(test_dict)
-    # print(appart)
-    # create a loop a travers le dictionnaire
-    for i, n in enumerate(test_dict):
-        # permet d'assigner la valeur des keys a mot clé afin d'executer la query
-
-        # append chaque valeur dans le dict benevole
-        benevole[f"{list(test_dict.keys())[i]}__icontains"] = f"{test_dict[n]}"
-
-    return benevole
-
-
-def input_to_validate_data(user_input: str) -> list:
-    research_list = []
-
-    user_input_as_list = user_input.split(",")
-    print(user_input_as_list)
-
-    # print(user_input_as_list)
-    combinations = combinaison(user_input_as_list)
-    print(f"combinations = {combinations}")
-
-    for tup in combinations:
-        clean_str = tuple_to_str(tup)
-        print(clean_str)
-        dict_convert = convert_str_to_dict(clean_str)
-        print(dict_convert)
-        dict_to_append = creation_dict(dict_convert)
-        print(dict_to_append)
-
-        research_list.append(dict_to_append)
-
-    return research_list
 
 
 def queryset_by_element(d: dict, query_set) -> dict:
@@ -156,7 +19,6 @@ def queryset_by_element(d: dict, query_set) -> dict:
     query_result = {}
 
     for i, subdict in enumerate(d):
-        # print(subdict)
         x = " ".join(list(subdict.values()))
         benevoles = query_set(**subdict)
 
@@ -169,21 +31,67 @@ def queryset_by_element(d: dict, query_set) -> dict:
     return query_result
 
 
-def convertion(recherche_list, champs_list) -> list:
+def combinaison_avec_dict_a_la_base(d: dict) -> list[dict]:
     """
-    Convert data from the form to data which can be used in the main function: queryset_by_element
+    return une combinaison de toutes les keys/values du dict exemple :
+    d = {'langue_maternelle': 'français', 'langue_maternelle': 'autres'}
+    alors
+    combinaisons = [
+        {'langue_maternelle': 'français', 'langue_maternelle': 'autres'},
+        {'langue_maternelle': 'français },
+        {'langue_maternelle': 'autres'}
+    ]
     """
-    # recherche and champs fields without blank one
-    recherche = recherche_list
-    champs = champs_list
+    combinaisons = []
 
-    # zip peut entrainer un bug si deux champs sont egaux !!!! normalement aucun champs égaux
-    resultat_dict = dict(zip(champs, recherche))
-    query = str(resultat_dict)
-    clean_query = clean_data(query)
-    ## jusqu'a ici ca marche
+    for i in range(len(d)):
+        combinaisons += list(itertools.combinations(d.items(), i + 1))
 
-    # Two mains functions to run the query :
-    final = input_to_validate_data(clean_query)
+    # return combinaison inversée pour faire apparaitre un meilleur ordre de réponse
+    return combinaisons[::-1]
 
-    return final
+
+def list_of_dict_des_combinaisons(combinaisons: list[tuple]) -> list[dict]:
+    """
+    return uniquement le dictionnaire de combinaise = supprime la list
+    plus ajoute '__icontains' afin de faire une meilleure recherche dans la db.
+    """
+    dictionnaires = []
+
+    for combinaison in combinaisons:
+        d = {}
+        for item in combinaison:
+            d[f"{item[0]}__icontains"] = item[1]
+        dictionnaires.append(d)
+
+    return dictionnaires
+
+
+def merges_two_list_to_dict(champs: list, recherche: list) -> dict:
+    """
+    prends les deux fields (champs et recherche) de la form html et
+    les mets sous la forme d'un dict tel que :
+    d1 = {'langue_maternelle': 'autres'}
+    si champs = [langue_maternelle] et recherche = [autres]
+    """
+    d1 = {}
+
+    for i in range(len(recherche)):
+        d1[champs[i]] = recherche[i]
+
+    return d1
+
+
+def recherche_combinaison(champs: list[str], recherche: list[str], queryset):
+    """
+    main fonction qui prends 3 args : champs ,recherche et un queryset
+    qui va les convertir grace aux fonctions utils et nous donner les
+    resultats que nous avons besoin.
+    """
+    result = merges_two_list_to_dict(champs, recherche)
+    combinaisons = combinaison_avec_dict_a_la_base(result)
+    d_combinaison = list_of_dict_des_combinaisons(combinaisons)
+
+    intervs = queryset_by_element(d_combinaison, queryset)
+
+    return intervs
