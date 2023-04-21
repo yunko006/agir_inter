@@ -1,9 +1,9 @@
-<div class="row mb-2">
+<div class="row mb-2" name='test'>
     <div class="col-4">
       <p>Critères de recherche pour l'intervention</p>
       <div class="form-group">
         <select class="form-select" name="champs">
-          <option value="#">--</option>
+          <option value="" selected disabled>-- Sélectionnez une option --</option>
           <option value="langue_maternelle">Langue : maternelle</option>
           <option value="autonome">Langue : autonome</option>
           <option value="notions">Langue: notions</option>
@@ -16,8 +16,25 @@
         </select>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-4">
       <p>Spécificité</p>
       <input type="text" class="form-control" name="recherche"  placeholder="Mot clé" />
     </div>
+    <div class='col-2 d-flex align-items-end'>
+      <button class="btn btn-info" hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="beforeend">
+        +
+      </button>
+    </div>
+    <div class='col-2 d-flex align-items-end'>
+      <button class="btn btn-danger" onclick="deleteRow(this)">
+        - 
+      </button>
+    </div>
+
 </div>
+
+<script>
+function deleteRow(btn) {
+  btn.parentNode.parentNode.remove();
+}
+</script>
