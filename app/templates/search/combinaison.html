@@ -10,19 +10,20 @@
 {% block content %}
 
 <!-- Le bouton pour ajouter un nouveau champ de formulaire -->
-<button hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="afterend">
+<button class="btn btn-info" hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="beforeend">
   Ajouter un champ de formulaire
 </button>
 
+
 <!-- Les champs de formulaire existants -->
-<form id="my-form" name="submit_button" method="POST" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results" >
+<form id="my-form" name="my-form" method="POST" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results"  hx-vals="#my-form input, #my-form select" novalidate>
   <div id="form-fields">
-    <div class="row mb-2">
+    <div class="row mb-2" name='test'>
       <div class="col-4">
         <p>Critères de recherche pour l'intervention</p>
         <div class="form-group">
           <select class="form-select" name="champs">
-            <option value="#">--</option>
+            <option value="" selected disabled>-- Sélectionnez une option --</option>
             <option value="langue_maternelle">Langue : maternelle</option>
             <option value="autonome">Langue : autonome</option>
             <option value="notions">Langue: notions</option>
@@ -37,7 +38,7 @@
       </div>
       <div class="col-8">
         <p>Spécificité</p>
-        <input type="text" class="form-control" name="recherche"  placeholder="Mot clé" />
+        <input type="text" class="form-control" name="recherche" placeholder="Mot clé" required/>
       </div>
     </div>
   </div>
@@ -47,32 +48,5 @@
 
 <div id='results'>
 </div>
-
-
-<script>
-  // récupère le formulaire
-const form = document.querySelector('#my-form');
-
-// écoute l'événement submit sur le formulaire
-form.addEventListener('submit', (event) => {
-  // empêche le formulaire de se soumettre normalement
-  event.preventDefault();
-  
-  // récupère les données du formulaire en utilisant FormData
-  const formData = new FormData(form);
-  
-  // envoie les données du formulaire au serveur Flask via une requête AJAX
-  fetch({{url_for('search.combinaison_search')}}, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    // traite la réponse du serveur Flask
-  })
-  .catch(error => {
-    console.error(error);
-  });
-});
-</script>
 
 {% endblock %}
