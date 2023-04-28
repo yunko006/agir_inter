@@ -16,10 +16,5 @@ class Config:
         }
     ]
 
-    redis_pw = os.environ.get("REDIS_PASSWORD")
-    redis_host = os.environ.get("REDIS_HOST")
-
-    # SESSION_TYPE = "redis"
-    # SESSION_PERMANENT = False
-    # SESSION_USE_SIGNER = True
-    # SESSION_REDIS = redis.from_url(f"redis://:{redis_pw}@{redis_host}")
+    # redis_pw = os.environ.get("REDIS_PASSWORD")
+    # redis_host = os.environ.get("REDIS_HOST")

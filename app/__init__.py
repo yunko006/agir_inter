@@ -1,10 +1,9 @@
 from flask import Flask, redirect, render_template, url_for
-from flask_session import Session
 from flask_bootstrap import Bootstrap5
 
 from config import Config
 
-from .extensions import db, login_manager, sess
+from .extensions import db, login_manager
 
 
 def create_app(config_class=Config):
@@ -12,8 +11,6 @@ def create_app(config_class=Config):
 
     app.config.from_object(config_class)
 
-    # server_session = Session(app)
-    # sess.init_app(app)
     # initialize mongodb
     db.init_app(app)
 
