@@ -4,27 +4,49 @@
 {% block page_header %}
 
 {% endblock page_header %}
-{% block content %}
-    
-    <div class="column is-4 messages hero" id="message-feed">
-        <h3> 
-            Recherche textuelle 
-            <span class="htmx-indicator"> 
-                <img src="{{ url_for('static', filename='images/bars.svg') }}"/> Recherche... 
-            </span> 
-        </h3>
 
+{% block content %}
+<div class="column is-4 messages hero" id="message-feed">
+    <h3> 
+        Recherche textuelle 
+        <span class="htmx-indicator"> 
+            <img src="{{ url_for('static', filename='images/bars.svg') }}"/> Recherche... 
+        </span> 
+    </h3>
+
+    <form id="myForm">
         <input class="form-control" type="search" 
             name="search" placeholder="Rechercher des intervenants..." 
             hx-post="{{ url_for('search.active_search') }}" 
             hx-trigger="keyup changed delay:500ms, search" 
             hx-target="#search-results" 
-            hx-indicator=".htmx-indicator">
+            hx-indicator=".htmx-indicator"
+            id="search-input">
 
         <div class='col-md-auto'>
             <div id="search-results"></div>
         </div>
-                 
-    </div>
+
+        <button class="btn btn-info" name="save-data"
+            hx-post="{{ url_for('search.save_data') }}"
+            hx-include="#search-input"
+            onclick="submitForm()">
+            Mettre les datas dans la db
+        </button>
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        // Récupère l'élément form
+        var form = document.getElementById("myForm");
+
+        // Soumettre le formulaire
+        form.submit();
+
+        // Redirige l'utilisateur vers la nouvelle page
+        window.location.href = "{{ url_for('search.combinaison') }}";
+    }
+</script>
 
 {% endblock %}
