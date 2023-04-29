@@ -3,6 +3,7 @@ from flask_login import current_user
 
 from app.search import bp
 from app.models.intervenants import Intervenants
+from app.models.resultats import Resultats
 from mongoengine.connection import get_db
 
 from roles_required import AI_required, admin_required
@@ -82,20 +83,25 @@ def combinaison_search():
     return "chargement des résultats..."
 
 
-@bp.route("/combinaison_resultats")
-def combinaison_sur_txt_results():
-    db = get_db()
-    results = db["ma_collection"].find()
+@bp.route("/combinaison_resultats", methods=["GET", "POST"])
+def combinaison_sur_txt_search():
+    collection_name = f"resultats_{current_user.id}"
 
-    # Convertissez les résultats en une liste de dictionnaires.
-    results_list = [result for result in results]
+    # accede au valeur de la form
+    recherche = request.form.getlist("recherche")
+    champs = request.form.getlist("champs")
 
-    # Créez un queryset à partir de la liste de dictionnaires.
-    queryset = Intervenants.objects.filter(
-        id__in=[result["id"] for result in results_list]
-    )
+    if request.method == "POST":
+        if recherche and champs:
+            Resultats._meta["collection"] = collection_name
 
-    for q in queryset:
-        q.nom
+            query_set = Resultats.objects().all()
 
-    return "ok"
+            intervs = recherche_combinaison(champs, recherche, query_set)
+
+            return render_template("search/results_combinaison.html", intervs=intervs)
+
+        # attente grâce aux champs vides
+        return "chargement des résultats..."
+
+    return render_template("search/combinaison_txt.html")
