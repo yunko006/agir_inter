@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
 from app.search import bp
@@ -22,6 +22,15 @@ def active_search():
     intervs = Intervenants.objects.search_text(search).order_by("$text_score")
 
     return render_template("search/results.html", intervs=intervs)
+
+
+@bp.route("/search_intervenants", methods=["POST"])
+def intervenants():
+    search = request.form["search"]
+
+    benevoles = Intervenants.objects(nom__iexact=search)
+
+    return render_template("intervenants/intervenants.html", benevoles=benevoles)
 
 
 @bp.route("/save_data", methods=["POST"])
