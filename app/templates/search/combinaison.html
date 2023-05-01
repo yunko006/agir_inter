@@ -38,7 +38,7 @@
         <input type="text" class="form-control" name="recherche" placeholder="Mot clé" required/>
       </div>
       <div class='col-2 d-flex align-items-end'>
-        <button class="btn btn-info" hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="beforeend">
+        <button class="btn btn-info" hx-post='{{ url_for("search.add_field") }}' hx-target="#form-fields" hx-swap="beforeend">
           Ajouter un champs
         </button>
       </div>
