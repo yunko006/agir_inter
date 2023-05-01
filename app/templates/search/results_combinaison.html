@@ -1,29 +1,31 @@
 {% for k, benevole in intervs.items() %}
-    <h4>Résultat de la combinaison : {{ k }} </h4>
+<div class='p-4'>
+    <h4 class='text-center'>Résultat de la combinaison : {{ k }} </h4>
 
-                <table class="table table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Numéro d'Adhérent</th>
-                            <th>Nom</th>
-                            <th>Prenom</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for b in benevole %}
-                            {% if b is not string %}
-                                <tr style="transform: rotate(0);">
-                                <th scope="row"><a href="{{ url_for('intervenants.intervenant_par_id', id=b.id) }}" class="stretched-link text-decoration-none text-dark">{{ b.id}}</a></th>
-                                    <td>{{ b.nom }}</td>
-                                    <td>{{ b.prenom }}</td>
-                                    <td>{{ b.email }}</td>
-                                </tr>
-                                {% else %}
-                                    <li> Pas dé bénévoles associés à la recherche </li>
-                                {% endif %}
-                            {% endfor %}
-                    </tbody>
-                </table>
-        <hr>
-    {% endfor %}
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Numéro d'Adhérent</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for b in benevole %}
+            {% if b is not string %}
+                <tr style="transform: rotate(0);">
+                <th scope="row"><a href="{{ url_for('intervenants.intervenant_par_id', id=b.id) }}" class="stretched-link text-decoration-none text-dark">{{ b.id}}</a></th>
+                    <td>{{ b.nom }}</td>
+                    <td>{{ b.prenom }}</td>
+                    <td>{{ b.email }}</td>
+                </tr>
+            {% else %}
+            <p> Pas dé bénévoles associés à la recherche </p>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endfor %}

@@ -1,3 +1,20 @@
+
+<div class='row'>
+    <div class='col d-flex justify-content-center p-4'>
+        <button id='btn' class="btn btn-danger" name="save-data"
+            hx-post="{{ url_for('search.save_data') }}"
+            hx-include="#search-input"
+            onclick="submitForm()">
+            Faire une recherche avancée sur ces résultats
+        </button>
+    </div>
+
+    <div class='col d-flex justify-content-center p-4'>
+        <a type="button" class="btn btn-outline-primary me-2" href="{{ url_for('search.index') }}">Retour</a>
+    </div>
+</div>
+
+
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>

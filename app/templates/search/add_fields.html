@@ -1,11 +1,11 @@
-<div class="row mb-2" name='test'>
+<div class="row mb-4" name='test'>
     <div class="col-4">
       <p>Critères de recherche</p>
       <div class="form-group">
         <select class="form-select" name="champs">
           <option value="" selected disabled>-- Sélectionnez une option --</option>
           <option value="langue_maternelle">Langue : maternelle</option>
-          <option value="autonome">Langue : autonome</option>
+          <option value="autonomes">Langue : autonome</option>
           <option value="notions">Langue: notions</option>
           <option value="lu_parle_ecrit">Langue : lu parlée écrite</option>
           <option value="domaines">Domaine d'intervetion</option>
@@ -22,12 +22,12 @@
     </div>
     <div class='col-2 d-flex align-items-end'>
       <button class="btn btn-info" hx-post={{ url_for("search.add_field") }} hx-target="#form-fields" hx-swap="beforeend">
-        +
+        Ajouter un champs
       </button>
     </div>
     <div class='col-2 d-flex align-items-end'>
       <button class="btn btn-danger" onclick="deleteRow(this)">
-        - 
+        Supprimer ce champs
       </button>
     </div>
 

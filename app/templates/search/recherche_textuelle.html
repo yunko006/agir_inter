@@ -17,6 +17,7 @@
     <form id="myForm">
         <input class="form-control" type="search" 
             name="search" placeholder="Rechercher des intervenants..." 
+            hx-swap-oob="true"
             hx-post="{{ url_for('search.active_search') }}" 
             hx-trigger="keyup changed delay:500ms, search" 
             hx-target="#search-results" 
@@ -27,12 +28,6 @@
             <div id="search-results"></div>
         </div>
 
-        <button class="btn btn-info" name="save-data"
-            hx-post="{{ url_for('search.save_data') }}"
-            hx-include="#search-input"
-            onclick="submitForm()">
-            Mettre les datas dans la db
-        </button>
     </form>
 </div>
 
@@ -47,6 +42,7 @@
         // Redirige l'utilisateur vers la nouvelle page
         window.location.href = "{{ url_for('search.combinaison_sur_txt_search') }}";
     }
+
 </script>
 
 {% endblock %}
