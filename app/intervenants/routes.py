@@ -1,10 +1,11 @@
 from flask import render_template
+from flask_login import login_required
 
 from app.intervenants import bp
-from app.extensions import db
 from app.models.intervenants import Intervenants
 
 
+@login_required
 @bp.route("/delegation", methods=["GET", "POST"])
 def accordeon_delegation():
     # get all distinct delegation to loop throught
@@ -19,6 +20,7 @@ def accordeon_delegation():
     )
 
 
+@login_required
 @bp.route("/<id>")
 def intervenant_par_id(id):
     benevole_par_id = Intervenants.objects(id=id)
