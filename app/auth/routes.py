@@ -26,7 +26,7 @@ def login():
                     return abort(400)
 
                 if "AI" in user.roles or "Admin" in user.roles:
-                    return redirect(url_for("search.index"))
+                    return redirect(url_for("index"))
                 else:
                     return redirect(url_for("benevole", id=current_user.numero))
 
