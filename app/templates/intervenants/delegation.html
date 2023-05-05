@@ -3,13 +3,13 @@
 {% block title %} Liste des intervenants {% endblock %}
 
 {% block page_header %}
-<div class="container">
+
   <div class="row">
-      <div class="col">
+      <div class="col-md-8">
           <h2 class="text-center">Intervenants par Délégation</h2>
       </div>
       <div class="col">
-          <div class="">
+          <div class="text-center">
           <form id="myForm">
               <input class="form-control" type="search" 
                   name="search" placeholder="Recherche un intervenant par n°/nom" 
@@ -22,21 +22,17 @@
           </form>
         </div>
       </div>
-      <div class='col-2'>
-          <span class="htmx-indicator"> 
-            <img src="{{ url_for('static', filename='images/bars.svg') }}"/> Recherche... 
-          </span>
-      </div>  
+
   </div>
-</div>
+
 
 {% endblock page_header %}
 
 {% block content %}
 
-
-<div class='p-4' id="search-results">
+<div class='py-4' id="search-results">
 <!-- accordion -->
+
   {% for dele in delegation %}
   <div class="accordion mb-2" id="accordion-{{ loop.index }}">
     <div class="accordion-item">
@@ -76,6 +72,7 @@
   </div>
   {% endfor %}
 </div>
+
 
 
 {% endblock content %}

@@ -3,9 +3,28 @@
 {% block title %} Recherche avancée sur txt{% endblock %}
 
 {% block page_header %}
-<h3> 
-  Recherche avancée sur résultats
-</h3>
+<div class="text-center">
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <a type="button" class="btn btn-outline-primary me-2" href="{{ url_for('search.index') }}">Recommencer recherche textuelle</a>
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col'>
+    </div>
+    <div class='col'>
+      <h3> 
+        Recherche avancée sur résultats
+      </h3>
+    </div>
+    <div class='col'>
+    </div>
+  </div>
+</div>
 
 {% endblock page_header %}
 
@@ -16,7 +35,7 @@
   <div id="form-fields">
     <div class="row mb-2" name='test'>
       <div class="col-4">
-        <p>Critères de recherche</p>
+        <p>Critères</p>
         <div class="form-group">
           <select class="form-select" name="champs">
             <option value="" selected disabled>-- Sélectionnez une option --</option>
@@ -32,14 +51,18 @@
           </select>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <p>Spécificité</p>
         <input type="text" class="form-control" name="recherche" placeholder="Mot clé" required/>
       </div>
-      <div class='col-2 d-flex align-items-end'>
-        <button class="btn btn-info" hx-post='{{ url_for("search.add_field") }}' hx-target="#form-fields" hx-swap="beforeend">
-          Ajouter un champs
-        </button>
+      <div class="col-2 d-flex align-items-end justify-content-center">
+        <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter un champs" hx-post="{{ url_for("search.add_field") }}" hx-target="#form-fields" hx-swap="beforeend">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+            </svg>
+            <span class="visually-hidden">Plus</span>
+          </a>
       </div>
     </div>
   </div>

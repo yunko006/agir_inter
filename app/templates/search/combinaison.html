@@ -1,17 +1,60 @@
 {% extends 'base.html' %}
-{% from 'bootstrap5/form.html' import render_form %}
 {% block title %} Recherche avancée {% endblock %}
 
 {% block page_header %}
-<h3> 
-  Recherche avancée
-</h3>
+<div class="text-center">
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <a type="button" class="btn btn-outline-secondary rounded-pill" href="{{ url_for('search.index') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        Recherche textuelle</a>
+    </div>
+    <div class="col">
+    </div>
+    <div class="col d-flex justify-content-end">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Aide pour recherche avancée
+      </button>
 
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Aide pour recherche avancée</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Bonjour ici l'aide
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col'>
+    </div>
+    <div class='col'>
+      <h3> 
+        Recherche avancée
+      </h3>
+    </div>
+    <div class='col'>
+    </div>
+  </div>
+</div>
 {% endblock page_header %}
 
 {% block content %}
 
-<div class='mb-2'>
+<div class='mb-2 py-4'>
 <!-- Les champs de formulaire existants -->
 <form id="my-form" name="my-form" method="POST" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results"  hx-vals="#my-form input, #my-form select" novalidate>
   <div id="form-fields">
@@ -19,7 +62,7 @@
       <div class="col-4">
         <p>Critères</p>
         <div class="form-group">
-          <select class="form-select" name="champs">
+          <select class="form-select form-select-color" name="champs" required>
             <option value="" selected disabled>-- Sélectionnez une option --</option>
             <option value="langue_maternelle">Langue : maternelle</option>
             <option value="autonomes">Langue : autonome</option>
@@ -33,21 +76,25 @@
           </select>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <p>Spécificité</p>
         <input type="text" class="form-control" name="recherche" placeholder="Mot clé" required/>
       </div>
-      <div class='col-2 d-flex align-items-end'>
-        <button class="btn btn-info" hx-post='{{ url_for("search.add_field") }}' hx-target="#form-fields" hx-swap="beforeend">
-          Ajouter un champs
-        </button>
+      <div class="col-2 d-flex align-items-end justify-content-center">
+        <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter un champs" hx-post="{{ url_for("search.add_field") }}" hx-target="#form-fields" hx-swap="beforeend">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
+            </svg>
+            <span class="visually-hidden">Plus</span>
+          </a>
       </div>
     </div>
   </div>
 </form>
 </div>
 
-<div class='d-flex justify-content-center mb-4'>
+<div class='d-flex justify-content-center py-4'>
   <button class="btn btn-primary" type="submit" form="my-form" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results">Rechercher</button>
 </div>
 <div id='results'>

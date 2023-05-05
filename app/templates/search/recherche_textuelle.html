@@ -2,17 +2,40 @@
 {% block title %} Recherche{% endblock %}
 
 {% block page_header %}
-
-{% endblock page_header %}
-
-{% block content %}
-<div class="column is-4 messages hero" id="message-feed">
-    <h3> 
-        Recherche textuelle 
+<div class="text-center ">
+    <div class="row">
+      <div class="col d-flex justify-content-start">
+        <a type="button" class="btn btn-sm btn-outline-primary me-2 rounded-pill" href="{{ url_for('index') }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+          </svg>
+          Retour à l'acceuil</a>
+      </div>
+      <div class="col">
+      </div>
+      <div class="col">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        <h3 class='text-center'> 
+            Recherche textuelle 
+        </h3>
+      </div>
+      <div class='col d-flex justify-content-start'>
         <span class="htmx-indicator"> 
             <img src="{{ url_for('static', filename='images/bars.svg') }}"/> Recherche... 
         </span> 
-    </h3>
+      </div>
+    </div>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<div class="" id="message-feed">
+    
 
     <form id="myForm">
         <input class="form-control" type="search" 
@@ -23,13 +46,13 @@
             hx-target="#search-results" 
             hx-indicator=".htmx-indicator"
             id="search-input">
-
-        <div class='col-md-auto'>
-            <div id="search-results"></div>
-        </div>
-
     </form>
+    <div class='py-4 text-center' id="search-results">
+        <p class='fst-italic'>Les résultats de votre recherche apparaitrons ici </p>
+    </div>
 </div>
+
+
 
 <script>
     function submitForm() {

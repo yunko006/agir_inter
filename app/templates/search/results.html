@@ -1,20 +1,27 @@
-
 <div class='row'>
-    <div class='col d-flex justify-content-center p-4'>
-        <button id='btn' class="btn btn-danger" name="save-data"
+
+    <div class='col d-flex justify-content-start py-4'>
+        <a type="button" class="btn btn-outline-danger" href="{{ url_for('search.index') }}">Réinitialiser la recherche</a>
+    </div>
+
+    <div class='col'>
+    </div>
+
+    <div class='col d-flex justify-content-end py-4'>
+        <button id='btn' class="btn btn-success rounded" name="save-data"
             hx-post="{{ url_for('search.save_data') }}"
             hx-include="#search-input"
             onclick="submitForm()">
             Faire une recherche avancée sur ces résultats
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+            </svg>
         </button>
     </div>
 
-    <div class='col d-flex justify-content-center p-4'>
-        <a type="button" class="btn btn-outline-primary me-2" href="{{ url_for('search.index') }}">Retour</a>
-    </div>
 </div>
 
-
+<div class='border'>
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
@@ -28,7 +35,7 @@
     <tbody>
         {% for benevole in intervs %}
         <tr style="transform: rotate(0);">
-            <th scope="row"><a href="{{ url_for('intervenants.intervenant_par_id', id=benevole.id) }}" class="stretched-link text-decoration-none text-dark">{{ benevole.id}}</a></th>
+            <th scope="row"><a href="{{ url_for('intervenants.intervenant_par_id', id=benevole.id) }}" class="stretched-link text-decoration-none text-dark">{{ benevole.id }}</a></th>
                 <td>{{ benevole.nom }}</td>
                 <td>{{ benevole.prenom }}</td>
                 <td>{{ benevole.delegation }}</td>
@@ -36,3 +43,9 @@
         {% endfor %}
     </tbody>
 </table>
+
+
+</div>
+<div class="d-flex justify-content-center py-2" id="pagination">
+    {% include 'partials/pagination.html' %}
+</div>
