@@ -1,0 +1,44 @@
+  <nav>
+    <ul class="pagination">
+      {% if pagination.has_prev %}
+        <li class="page-item">
+          <a class="page-link" hx-get="{{ url_for('search.active_search', page=page_num - 1) }}" hx-target='#search-results' aria-label="Previous">
+            <span aria-hidden="true">Précédente &laquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+        </li>
+      {% endif %}
+  
+        {% if page_num %}
+          {% if page_num != pagination.page %}
+            <li class="page-item">
+              <a class="page-link" href="{{ url_for('search.active_search', page=page_num) }}">{{ page_num }}</a>
+            </li>
+          {% else %}
+            <li class="page-item active">
+              <span class="page-link">{{ page_num }} sur {{pagination.total_pages}}</span>
+            </li>
+          {% endif %}
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+        {% endif %}
+
+      {% if pagination.has_next %}
+        <li class="page-item">
+          <a class="page-link" hx-get="{{ url_for('search.active_search', page=page_num + 1) }}" hx-target='#search-results' aria-label="Next">
+            <span aria-hidden="true">Suivante &raquo;</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&raquo;</span>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
