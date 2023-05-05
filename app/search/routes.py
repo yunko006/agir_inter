@@ -1,5 +1,5 @@
-from flask import redirect, render_template, request, url_for
-from flask_login import current_user
+from flask import redirect, render_template, request, session, url_for
+from flask_login import current_user, login_required
 
 from app.search import bp
 from app.models.intervenants import Intervenants
@@ -8,6 +8,7 @@ from mongoengine.connection import get_db
 
 from roles_required import AI_required, admin_required
 from app.search.utils import recherche_combinaison
+from flask_paginate import Pagination
 
 
 @bp.route("/")
@@ -16,23 +17,53 @@ def index():
     return render_template("search/recherche_textuelle.html")
 
 
+@login_required
 @bp.route("/active_search", methods=["POST", "GET"])
 def active_search():
-    search = request.form["search"]
+    # vérifie si la recherche a été soumise
+    if request.method == "POST":
+        search = request.form["search"]
+        session["search"] = search
+        page_num = request.args.get("page", type=int, default=1)
+    else:
+        search = session.get("search", "")
+        page_num = request.args.get("page", type=int, default=1)
+
+    # pagination
+    per_page = 10
+    offset = (page_num - 1) * per_page
+
+    # récupère les résultats de la recherche avec pagination
     intervs = Intervenants.objects.search_text(search).order_by("$text_score")
 
-    return render_template("search/results.html", intervs=intervs)
+    pagination = Pagination(
+        page=page_num,
+        total=intervs.count(),
+        per_page=per_page,
+        record_name=intervs,
+        css_framework="bootstrap5",
+    )
+    intervs = intervs.skip(offset).limit(per_page)
+
+    return render_template(
+        "search/results.html",
+        intervs=intervs,
+        pagination=pagination,
+        page_num=page_num,
+    )
 
 
+@login_required
 @bp.route("/search_intervenants", methods=["POST"])
 def intervenants():
     search = request.form["search"]
 
     benevoles = Intervenants.objects(nom__iexact=search)
 
-    return render_template("intervenants/intervenants.html", benevoles=benevoles)
+    return render_template("partials/intervenants.html", benevoles=benevoles)
 
 
+@login_required
 @bp.route("/save_data", methods=["POST"])
 def save_data():
     user_id = current_user.id
@@ -60,13 +91,17 @@ def combinaison():
     return render_template("search/combinaison.html")
 
 
-# Route pour ajouter un nouveau champ de formulaire
+@login_required
 @bp.route("/add_field", methods=["POST"])
 def add_field():
+    """
+    Route pour ajouter un nouveau champ de formulaire
+    """
     # utilse htmx pour render template dans la form
-    return render_template("search/add_fields.html")
+    return render_template("partials/add_fields.html")
 
 
+@login_required
 @bp.route("/combinaison_search", methods=["POST"])
 def combinaison_search():
     """
@@ -92,6 +127,7 @@ def combinaison_search():
     return "chargement des résultats..."
 
 
+@login_required
 @bp.route("/combinaison_resultats", methods=["GET", "POST"])
 def combinaison_sur_txt_search():
     collection_name = f"resultats_{current_user.id}"
