@@ -5,8 +5,8 @@ from app.intervenants import bp
 from app.models.intervenants import Intervenants
 
 
-@login_required
 @bp.route("/delegation", methods=["GET", "POST"])
+@login_required
 def accordeon_delegation():
     # get all distinct delegation to loop throught
     delegation = Intervenants.objects.distinct("delegation")
@@ -20,8 +20,8 @@ def accordeon_delegation():
     )
 
 
-@login_required
 @bp.route("/<id>")
+@login_required
 def intervenant_par_id(id):
     benevole_par_id = Intervenants.objects(id=id)
     # get l'oject precis pour pouvoir avoir faire .id

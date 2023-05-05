@@ -17,8 +17,8 @@ def index():
     return render_template("search/recherche_textuelle.html")
 
 
-@login_required
 @bp.route("/active_search", methods=["POST", "GET"])
+@login_required
 def active_search():
     # vérifie si la recherche a été soumise
     if request.method == "POST":
@@ -53,8 +53,8 @@ def active_search():
     )
 
 
-@login_required
 @bp.route("/search_intervenants", methods=["POST"])
+@login_required
 def intervenants():
     search = request.form["search"]
 
@@ -63,8 +63,8 @@ def intervenants():
     return render_template("partials/intervenants.html", benevoles=benevoles)
 
 
-@login_required
 @bp.route("/save_data", methods=["POST"])
+@login_required
 def save_data():
     user_id = current_user.id
     search = request.form["search"]
@@ -91,8 +91,8 @@ def combinaison():
     return render_template("search/combinaison.html")
 
 
-@login_required
 @bp.route("/add_field", methods=["POST"])
+@login_required
 def add_field():
     """
     Route pour ajouter un nouveau champ de formulaire
@@ -101,8 +101,8 @@ def add_field():
     return render_template("partials/add_fields.html")
 
 
-@login_required
 @bp.route("/combinaison_search", methods=["POST"])
+@login_required
 def combinaison_search():
     """
     petit soucis : ma requete ajax (avec htmx) envoie dans un premier temps des fileds vite tels que : []
@@ -127,8 +127,8 @@ def combinaison_search():
     return "chargement des résultats..."
 
 
-@login_required
 @bp.route("/combinaison_resultats", methods=["GET", "POST"])
+@login_required
 def combinaison_sur_txt_search():
     collection_name = f"resultats_{current_user.id}"
 

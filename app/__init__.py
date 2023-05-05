@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, url_for
 from flask_bootstrap import Bootstrap5
+from flask_login import login_required
 
 from config import Config
 
@@ -38,6 +39,7 @@ def create_app(config_class=Config):
     # routes
 
     @app.route("/")
+    @login_required
     def index():
         return render_template("index.html")
 
