@@ -1,0 +1,44 @@
+
+
+<nav class="navbar navbar-expand-md navbar-light mb-3" aria-label="Fourth navbar example">
+    <div class="container-fluid">
+        <a class="navbar-brand pe-4 fs-4" href="/">
+            <img src="/static/images/logo.jpg" alt="Logo" width="100" height="64">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="/" aria-label="Vous amènes à l'Accueil">
+                Accueil
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark" href="{{ url_for('intervenants.accordeon_delegation') }}">
+                Voir intervenants
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Recherche</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li><a class="dropdown-item" href="{{ url_for('search.index') }}">Recherche</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('search.combinaison') }}">Recherche avancée</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown text-end">
+              <a class="nav-link link-dark dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Informations</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li><a class="dropdown-item" href="">Aide</a></li>
+                <li><a class="dropdown-item" href="">Contact</a></li>
+                <li><a class="dropdown-item" href="">A propos de...</a></li>
+              </ul>
+            </li>
+  
+          </ul>
+          <a type="button" class="btn btn-outline-primary me-2" href="{{ url_for('auth.logout')}}">Se déconnecter</a>
+      </div>
+    </div>
+  </nav>
