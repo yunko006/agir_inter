@@ -39,7 +39,7 @@ def create_app(config_class=Config):
 
     @app.route("/")
     def index():
-        return redirect(url_for("search.index"))
+        return render_template("index.html")
 
     @login_manager.unauthorized_handler
     def unauthorized_callback():
