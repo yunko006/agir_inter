@@ -36,9 +36,8 @@
 {% block content %}
 <div class="" id="message-feed">
     
-
-    <form id="myForm">
-        <input class="form-control" type="search" 
+  <form id="myForm">
+        <input class="form-control" type="search" onkeydown="disableEnterKey(event)"
             name="search" placeholder="Rechercher des intervenants..." 
             hx-swap-oob="true"
             hx-post="{{ url_for('search.active_search') }}" 
@@ -46,7 +45,8 @@
             hx-target="#search-results" 
             hx-indicator=".htmx-indicator"
             id="search-input">
-    </form>
+  </form>
+
     <div class='py-4 text-center' id="search-results">
         <p class='fst-italic'>Les résultats de votre recherche apparaitrons ici </p>
     </div>
@@ -58,12 +58,18 @@
     function submitForm() {
         // Récupère l'élément form
         var form = document.getElementById("myForm");
-
+        
         // Soumettre le formulaire
         form.submit();
 
         // Redirige l'utilisateur vers la nouvelle page
         window.location.href = "{{ url_for('search.combinaison_sur_txt_search') }}";
+    }
+
+    function disableEnterKey(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault(); // Empêche le comportement par défaut de la touche "Entrée"
+        }
     }
 
 </script>

@@ -11,7 +11,7 @@
       <div class="col">
           <div class="text-center">
           <form id="myForm">
-              <input class="form-control" type="search" 
+              <input class="form-control" type="search" onkeydown="disableEnterKey(event)"
                   name="search" placeholder="Recherche un intervenant par n°/nom" 
                   hx-post="{{ url_for('search.intervenants') }}" 
                   hx-trigger="keyup changed delay:500ms, search" 
@@ -73,6 +73,14 @@
   {% endfor %}
 </div>
 
+<script>
+  function disableEnterKey(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault(); // Empêche le comportement par défaut de la touche "Entrée"
+      }
+  }
+
+</script>
 
 
 {% endblock content %}
