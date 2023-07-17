@@ -1,8 +1,9 @@
-from flask import render_template
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_required
 
 from app.intervenants import bp
 from app.models.intervenants import Intervenants
+from app.intervenants.utils import update_benevole
 
 
 @bp.route("/delegation", methods=["GET", "POST"])
@@ -34,3 +35,15 @@ def intervenant_par_id(id):
         test=benevole_par_id,
         intervenant=benevole_id,
     )
+
+
+@bp.route("/update_benevole/<id>/<champs>", methods=["GET", "POST"])
+@login_required
+def modal_update_benevole(id, champs):
+    if request.method == "POST":
+        value = request.form.get("value")
+        update_benevole(id, champs, value)
+        flash("La fiche a bien été mise à jour!", "info")
+        return redirect(url_for("intervenants.intervenant_par_id", id=id))
+
+        ### test : jjpconsultant@gmail.com
