@@ -153,7 +153,7 @@ def combinaison_sur_txt_search():
             return render_template("search/results_combinaison.html", intervs=intervs)
 
         # attente grâce aux champs vides
-        return "chargement des résultats..."
+        return "chargement des résultats... Il y a actuellement un bug dans la recherche. Si les résultats n'apparaissent pas dans les 2 secondes, merci de réappuyer sur le bouton 'Rechercher"
 
     return render_template("search/combinaison_txt.html")
 
