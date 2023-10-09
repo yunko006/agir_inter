@@ -1,0 +1,31 @@
+<div class="row">
+    <!-- Icon pour cacher/montrer aide -->
+    <div class="col-auto">
+      <i onclick="toggleHelpAndIcon(event, this)" data-unique-id="{{ unique_id }}" class=" btn bi bi-eye-fill" data-bs-toggle="tooltip" title="Cacher l'aide"></i>
+    </div>
+
+  <!-- texte de l'aide. -->
+  <div class="col" id="champ_{{ unique_id }}" data-unique-id="{{ unique_id }}">
+    <span class="help-block" id='help'>Langues présentes dans la base de données : Anglais, Arabe, Espagnol, Français, Portugais, Russe, Swahili. Vous pouvez également saisir d'autres langues si elles ne figurent pas dans la liste.</span>
+  </div>
+</div>
+
+<script>
+function toggleHelpAndIcon(event, x) {
+  event.preventDefault(); // Empêche la soumission du formulaire
+  var uniqueId = event.target.getAttribute("data-unique-id");
+  var helpElement = document.querySelector(`#champ_${uniqueId}`);
+    
+  helpElement.style.display = (helpElement.style.display === "none") ? "block" : "none";
+    
+  x.classList.toggle("bi-eye-fill");
+  x.classList.toggle("bi-eye-slash-fill");
+  // cahcher/montrer aide en fonction de l'icon qui est display.
+  if (x.classList.contains("bi-eye-fill")) {
+    x.setAttribute("title", "Cacher l'aide.");
+  } else {
+    x.setAttribute("title", "Montrer l'aide.");
+  }
+}
+
+</script>
