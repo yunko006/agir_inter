@@ -1,4 +1,4 @@
-from flask import redirect, render_template, request, session, url_for
+from flask import jsonify, redirect, render_template, request, session
 from flask_login import current_user, login_required
 
 from app.search import bp
@@ -10,9 +10,11 @@ from roles_required import AI_required, admin_required
 from app.search.utils import recherche_combinaison
 from flask_paginate import Pagination
 
+import uuid
 
-@bp.route("/")
-@AI_required
+
+@bp.route("/", methods=["GET"])
+@login_required
 def index():
     return render_template("search/recherche_textuelle.html")
 
@@ -97,8 +99,10 @@ def add_field():
     """
     Route pour ajouter un nouveau champ de formulaire
     """
+    # ajout d'uuid pour generer un str unique et append l'aide en fonction.
+    unique_id = str(uuid.uuid4())
     # utilse htmx pour render template dans la form
-    return render_template("partials/add_fields.html")
+    return render_template("partials/add_fields.html", unique_id=unique_id)
 
 
 @bp.route("/combinaison_search", methods=["POST"])
@@ -113,6 +117,8 @@ def combinaison_search():
     recherche = request.form.getlist("recherche")
     champs = request.form.getlist("champs")
 
+    print(recherche, champs)
+
     # fixe bug avec un espace a la fin d'un mot !!!
 
     # recherche quand les champs sont pleins
@@ -124,7 +130,7 @@ def combinaison_search():
         return render_template("search/results_combinaison.html", intervs=intervs)
 
     # attente grâce aux champs vides
-    return "chargement des résultats..."
+    return "chargement des résultats... Il y a actuellement un bug dans la recherche. Si les résultats n'apparaissent pas dans les 2 secondes, merci de réappuyer sur le bouton 'Rechercher'"
 
 
 @bp.route("/combinaison_resultats", methods=["GET", "POST"])
@@ -150,3 +156,29 @@ def combinaison_sur_txt_search():
         return "chargement des résultats..."
 
     return render_template("search/combinaison_txt.html")
+
+
+@bp.route("/aide", methods=["GET", "POST"])
+@login_required
+def aide():
+    unique_id = str(uuid.uuid4())
+    champ = request.args.get("champs")
+
+    if champ == "langue_maternelle":
+        return render_template("partials/aide/_langues.html", unique_id=unique_id)
+    elif champ == "autonomes":
+        return render_template("partials/aide/_langues.html", unique_id=unique_id)
+    elif champ == "notions":
+        return render_template("partials/aide/_langues.html", unique_id=unique_id)
+    elif champ == "lu_parle_ecrit":
+        return render_template("partials/aide/_langues.html", unique_id=unique_id)
+    elif champ == "domaines":
+        return render_template("partials/aide/_domaines.html", unique_id=unique_id)
+    elif champ == "fonctions":
+        return render_template("partials/aide/_fonctions.html", unique_id=unique_id)
+    elif champ == "competences":
+        return render_template("partials/aide/_competences.html", unique_id=unique_id)
+    elif champ == "exp_pro":
+        return render_template("partials/aide/_exp.html", unique_id=unique_id)
+    elif champ == "exp_benevole":
+        return render_template("partials/aide/_exp.html", unique_id=unique_id)
