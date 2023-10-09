@@ -14,28 +14,6 @@
     <div class="col">
     </div>
     <div class="col d-flex justify-content-end">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Aide pour recherche avancée
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Aide pour recherche avancée</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              Bonjour ici l'aide
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class='row'>
@@ -58,11 +36,11 @@
 <!-- Les champs de formulaire existants -->
 <form id="my-form" name="my-form" method="POST" hx-post={{ url_for("search.combinaison_search") }} hx-target="#results"  hx-vals="#my-form input, #my-form select" novalidate>
   <div id="form-fields">
-    <div class="row mb-2" name='test'>
+    <div class="row mb-4" name='test'>
       <div class="col-4">
         <p>Critères</p>
         <div class="form-group">
-          <select class="form-select form-select-color" name="champs" required>
+          <select class="form-select form-select-color" name="champs" required hx-trigger="change" hx-get="{{ url_for("search.aide") }}" hx-target="#champ_dynamique" required>
             <option value="" selected disabled>-- Sélectionnez une option --</option>
             <option value="langue_maternelle">Langue : maternelle</option>
             <option value="autonomes">Langue : autonome</option>
@@ -79,6 +57,8 @@
       <div class="col-6">
         <p>Spécificité</p>
         <input type="text" class="form-control" name="recherche" placeholder="Mot clé" required/>
+        <div id="champ_dynamique"></div>
+        
       </div>
       <div class="col-2 d-flex align-items-end justify-content-center">
         <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter un champs" hx-post="{{ url_for("search.add_field") }}" hx-target="#form-fields" hx-swap="beforeend">

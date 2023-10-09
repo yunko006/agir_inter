@@ -1,8 +1,8 @@
 <div class="row mb-4" name='test'>
     <div class="col-4">
-      <p>Critères</p>
+      
       <div class="form-group">
-        <select class="form-select" name="champs">
+        <select class="form-select form-select-color" name="champs" required hx-trigger="change" hx-get="{{ url_for("search.aide") }}" hx-target="#champ_{{ unique_id }}" hx-swap="innerHTML" required>
           <option value="" selected disabled>-- Sélectionnez une option --</option>
           <option value="langue_maternelle">Langue : maternelle</option>
           <option value="autonomes">Langue : autonome</option>
@@ -17,8 +17,11 @@
       </div>
     </div>
     <div class="col-6">
-      <p>Spécificité</p>
+      <!-- recopier coller tout ici si probleme -->
       <input type="text" class="form-control" name="recherche"  placeholder="Mot clé" />
+      
+      <div id="champ_{{ unique_id }}" class="col"></div>
+        
     </div>
     <div class='col-2 d-flex align-items-end justify-content-center'>
       <div class="btn-group gap-2">
